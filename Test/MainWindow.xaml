@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid Grid.Row="1"  Margin="10, 20">
-            <ListBox Name="LstBxImage" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+            <ListBox Name="LstImage" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                      Background="White" BorderThickness="0"
                      AllowDrop="True" DragEnter="LstImg_DragEnter" 
                      DragLeave="LstImg_DragLeave" Drop="LstImg_Drop">

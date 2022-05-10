@@ -15,7 +15,6 @@ namespace Test
     /// </summary>
     public partial class MainWindow : Window
     {
-        Nullable<bool> imgtitle = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -23,17 +22,17 @@ namespace Test
 
         private void LstImg_DragLeave(object sender, DragEventArgs e)
         {
-            LstBxImage.Background = Brushes.WhiteSmoke;
+            LstImage.Background = Brushes.WhiteSmoke;
         }
 
         private void LstImg_DragEnter(object sender, DragEventArgs e)
         {
-            LstBxImage.Background = Brushes.LightSkyBlue;
+            LstImage.Background = Brushes.LightSkyBlue;
         }
 
         private void LstImg_Drop(object sender, DragEventArgs e)
         {
-            LstBxImage.Background = Brushes.WhiteSmoke;
+            LstImage.Background = Brushes.WhiteSmoke;
 
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
@@ -41,7 +40,7 @@ namespace Test
 
             if (ImagineView.FileImg(path) == false)
             {
-                MessageBox.Show("Ошибка формата изображения.");
+                MessageBox.Show("Ошибка", "Drag and Drop", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -55,52 +54,28 @@ namespace Test
 
             image.MouseUp += Image_MouseUp;
 
-            LstBxImage.Items.Add(image);
-            LstBxImage.ScrollIntoView(LstBxImage.Items[LstBxImage.Items.Count - 1]);
+            LstImage.Items.Add(image);
+            LstImage.ScrollIntoView(LstImage.Items[LstImage.Items.Count - 1]);
         }
 
         private void Image_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.Hide();
 
-            View vw = new View(GetChangedImages(350, 250), LstBxImage.SelectedIndex);
+            View vw = new View(GetChangedImages(350, 250), LstImage.SelectedIndex);
             vw.ShowDialog();
 
             this.Show();
-            LstBxImage.SelectedIndex = 0;
-        }
-
-        private void MnItmTiles_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeImagesInsideListBox(100, 100);
-            imgtitle = true;
-        }
-
-        private void MnItmSmallIcons_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeImagesInsideListBox(250, 150);
-            imgtitle = false;
-        }
-
-        private void MnItmNormalIcons_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeImagesInsideListBox(350, 250);
-            imgtitle = null;
-        }
-        private void ChangeImagesInsideListBox(int width, int height)
-        {
-            List<Image> img_ = GetChangedImages(width, height);
-            LstBxImage.Items.Clear();
-            img_.ForEach(img => LstBxImage.Items.Add(img));
+            LstImage.SelectedIndex = 0;
         }
 
         private List<Image> GetChangedImages(int width, int height)
         {
             List<Image> img_ = new List<Image>();
 
-            for (int i = 0; i < LstBxImage.Items.Count; i++)
+            for (int i = 0; i < LstImage.Items.Count; i++)
             {
-                img_.Add(LstBxImage.Items[i] as Image);
+                img_.Add(LstImage.Items[i] as Image);
                 img_[i].Width = width;
                 img_[i].Height = height;
                 img_[i].Stretch = Stretch.Fill;
